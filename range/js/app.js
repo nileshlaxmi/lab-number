@@ -2,50 +2,45 @@ const clickFunction = () => {
     let str = document.getElementById('ipText').value;
     let num = parseInt(str);
     
-    if(str !== ""){
-        for(let i=1; i<=num; i++){
-            let ar = i.toString().split("");
-            let sum = 0;
     
-            for(let j=0; j<ar.length; j++){
-                let number = parseInt(ar[j]);
-                sum = sum + Math.pow(number, (j+1));
-            }
-            
-            if(sum === i){
-                var para = document.createElement("p");
-                para.innerHTML = "Disarium Numbers "+ i;
-                document.getElementById('opText').appendChild(para);
-            }
-
-            let ar = [], i, br = [];
+    if(str !== ""){
+        let i=0, j=0, k=0;
+        let ar = [], br = [], cr = [];
         for(i=1; i<=num; i++){
-            if(num%i == 0){
-                ar.push(i);
-            }
-        }
-
-        for(i=0; i<ar.length; i++){
-            let c = 0;
-            for(let j=1; j<=ar[i]; j++){
-                if(ar[i]%j==0){
-                    c++;
+            for(j=1; j<=i; j++){
+                if(i%j==0){
+                    ar.push(j);
                 }
             }
 
-            if(c==2){
-                br.push(ar[i]);
-            }
-        }
+            for(j=0; j<ar.length; j++){
+                let c = 0;
+                for(k=1; k<=ar[j]; k++){
+                    if(ar[j]%k == 0){
+                        c++;
+                    }
+                }
 
-        for(i=0; i<br.length; i++){
-            if(num % (Math.pow(br[i],2)) == 0){
-                document.getElementById('opText').innerHTML = "Lab Number";
+                if(c==2){
+                    br.push(ar[j]);
+                }
             }
-            else{
-                document.getElementById('opText').innerHTML = "Not a Lab Number";
+
+            for(j=0; j<br.length; j++){
+                if(i%(Math.pow(br[j], 2)) == 0){
+                    cr.push(i);
+                }
             }
         }
+        
+        let uniqueArray = cr.filter(function(item, pos) {
+            return cr.indexOf(item) == pos;
+        })
+
+        for(i=0; i<uniqueArray.length; i++){
+            var para = document.createElement("p");
+            para.innerHTML = "Lab Numbers "+ uniqueArray[i];
+            document.getElementById('opText').appendChild(para);   
         }
     }
     else{
